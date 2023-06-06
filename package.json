@@ -4,7 +4,7 @@
   "description": "Testing various smart contracts within a fullstack web3 environment",
   "main": "scripts/deploy.ts",
   "scripts": {
-    "deploy": "npx hardhat run scripts/deploy.ts --network goerli",
+    "deploy": "npx hardhat run scripts/deploy.ts --network sepolia",
     "deploy:UserRegistry": "npx hardhat run scripts/deploy-user-registry.ts --network goerli",
     "test": "npx hardhat test"
   },

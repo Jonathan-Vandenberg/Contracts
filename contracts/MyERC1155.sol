@@ -6,9 +6,26 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "hardhat/console.sol";
 
-contract MyToken is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
-    constructor() ERC1155("") {}
+contract MyERC1155 is
+    ERC1155,
+    Ownable,
+    Pausable,
+    ERC1155Burnable,
+    ERC1155Supply
+{
+    event ContractCreated(address indexed deployedBy);
+    event TokensMinted(address mintedBy, uint indexed id, uint indexed amount);
+    event BatchTokensMinted(
+        address to,
+        uint[] indexed ids,
+        uint[] indexed amounts
+    );
+
+    constructor() ERC1155("") {
+        emit ContractCreated(msg.sender);
+    }
 
     function setURI(string memory newuri) public onlyOwner {
         _setURI(newuri);
@@ -29,6 +46,7 @@ contract MyToken is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
         bytes memory data
     ) public onlyOwner {
         _mint(account, id, amount, data);
+        emit TokensMinted(account, id, amount);
     }
 
     function mintBatch(
@@ -38,6 +56,7 @@ contract MyToken is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
         bytes memory data
     ) public onlyOwner {
         _mintBatch(to, ids, amounts, data);
+        emit BatchTokensMinted(to, ids, amounts);
     }
 
     function _beforeTokenTransfer(
