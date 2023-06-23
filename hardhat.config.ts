@@ -24,7 +24,7 @@ const config: HardhatUserConfig = {
       accounts: process.env.DEPLOYER_KEY ? [process.env.DEPLOYER_KEY] : [],
     },
     mumbai: {
-      url: "https://polygon-mumbai.infura.io/v3/b280b8aa6cda4dba845afb03d46c2396",
+      url: "https://polygon-mumbai.infura.io/v3/b280b8aa6cda4dba845afb03d46c2396", //RPC URL
       accounts: process.env.DEPLOYER_KEY ? [process.env.DEPLOYER_KEY] : [],
     },
     mainnet: {

@@ -4,17 +4,17 @@ import { ethers, upgrades } from "hardhat";
 require("dotenv").config();
 
 async function main() {
-  const MyERC1155 = await ethers.getContractFactory("MyERC1155");
+  const myERC20 = await ethers.getContractFactory("MyERC20");
 
-  const myERC1155 = await MyERC1155.deploy();
+  const deployedERC20 = await myERC20.deploy();
 
-  console.log(`Deployed MyERC1155 at: ${myERC1155.address}`);
+  console.log(`Deployed MyERC1155 at: ${deployedERC20.address}`);
 
   // Wait for a block to be mined
-  await myERC1155.deployTransaction.wait();
+  await deployedERC20.deployTransaction.wait();
 
   // Run the verification command
-  const addressToVerify = myERC1155.address;
+  const addressToVerify = deployedERC20.address;
   exec(
     `npx hardhat verify --network sepolia ${addressToVerify}`,
     (error, stdout, stderr) => {
